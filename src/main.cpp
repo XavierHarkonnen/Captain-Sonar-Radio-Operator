@@ -19,13 +19,29 @@ int main(int argc, char* argv[]) {
 				case SDL_QUIT:
 					running = false;
 					break;
+				case SDL_KEYDOWN:
+					switch (e.key.keysym.sym) {
+						case SDLK_UP:
+							board->move(NORTH);
+							break;
+						case SDLK_DOWN:
+							board->move(SOUTH);
+							break;
+						case SDLK_LEFT:
+							board->move(WEST);
+							break;
+						case SDLK_RIGHT:
+							board->move(EAST);
+							break;
+            }
+
 			}
 		}
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 
-		board.render(renderer);
+		board->render(renderer);
 
 		SDL_RenderPresent(renderer);
 	}
