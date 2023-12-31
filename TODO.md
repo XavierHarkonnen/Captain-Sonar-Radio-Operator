@@ -5,7 +5,7 @@
 - Write/adapt gameplay requirements (Captain Time)
 - Input handling and sanitation
 - Runtime interactive function calls
-- Graphical Interface
+- Graphical Interface (SDL2)
 - Campaign implementation
 
 ## Eventual
