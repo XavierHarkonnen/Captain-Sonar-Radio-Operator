@@ -14,7 +14,7 @@ A small program to automate the Radio Operator role for Captain Sonar.  Currentl
 
 ## Dependencies
 
-None
+SDL2 for graphical interface
 
 ## Usage
 
