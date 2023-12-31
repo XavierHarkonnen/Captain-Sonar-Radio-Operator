@@ -33,6 +33,10 @@ int main(int argc, char* argv[]) {
 						case SDLK_RIGHT:
 							board->move(EAST);
 							break;
+						case SDLK_z:
+							if (SDL_GetModState() & KMOD_CTRL) { board->undo(); }
+							break;
+
             }
 
 			}
