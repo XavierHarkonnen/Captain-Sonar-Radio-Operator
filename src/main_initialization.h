@@ -13,7 +13,6 @@ constexpr int SCREEN_HEIGHT = 600;
 constexpr int GRID_FONT_SIZE = 48;
 constexpr int BUTTON_FONT_SIZE = 24;
 
-
 bool main_initialize(
 	SDL_Window*& window,
 	SDL_Renderer*& renderer,

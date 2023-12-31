@@ -4,6 +4,10 @@
 #include "main_initialization.h"
 #include "button.h"
 
+const SDL_Color BUTTON_COLOR = {128, 128, 128, 255};
+constexpr int BUTTON_WIDTH = 180;
+constexpr int BUTTON_HEIGHT = 70;
+
 int main(int argc, char* argv[]) {
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderer = nullptr;
@@ -23,9 +27,9 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	Button Sonar_Button(500, 50, 200, 100, {255, 0, 0, 255}, "Sonar", button_font);
-	Button Drone_Button(500, 200, 200, 100, {255, 0, 0, 255}, "Drone", button_font);
-	Button Silence_Button(500, 350, 200, 100, {255, 0, 0, 255}, "Silence", button_font);
+	Button Sonar_Button(600, 10, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Sonar", button_font);
+	Button Drone_Button(600, 90, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Drone", button_font);
+	Button Silence_Button(600, 170, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Silence", button_font);
 
 	SDL_Event e;
 	bool running = true;
