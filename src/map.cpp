@@ -1,6 +1,8 @@
 #include "map.h"
 
-#include "error.h"
+extern "C" {
+	#include "signal.h"
+}
 
 #define ANSI_RESET "\033[0m"
 #define INVALID_COLOR "\033[101m"
@@ -76,7 +78,7 @@ void sector(const uint8_t sector_number, uint8_t sector_bounds[4]) {
 			sector_bounds[3] = 15;
 			break;
 		default:
-			error("Invalid Sector Number: %u\n       Undo to Recover", sector_number);
+			sig_error("Invalid Sector Number: %u\n       Undo to Recover", sector_number);
 			break;
 	}
 }
@@ -84,7 +86,7 @@ void sector(const uint8_t sector_number, uint8_t sector_bounds[4]) {
 Map::Map(const char *filename) {
 	FILE* map_file = fopen(filename, "r");
 	if (!map_file) {
-		error("Could Not Open File: %s\n", filename);
+		sig_error("Could Not Open File: %s\n", filename);
 	fclose(map_file);
 	}
 	else {
@@ -109,7 +111,7 @@ Map::Map(const char *filename) {
 					break;
 				default:
 					data[i][j] = Space::BORDER;
-					error("Invalid Character: %c (%i)", line_buffer[j], line_buffer[j]);
+					sig_error("Invalid Character: %c (%i)", line_buffer[j], line_buffer[j]);
 					continue;
 				}
 			}
@@ -123,7 +125,7 @@ void Map::undo() {
 		data = history.back();
 		history.pop_back();
 	} else {
-		warn("Undo history is empty.");
+		sig_warn("Undo history is empty.");
 	}
 }
 
@@ -132,7 +134,7 @@ void Map::clear() {
 		data = history.at(0);
 		history.clear();
 	} else {
-		warn("Nothing to clear, history is already empty.");
+		sig_warn("Nothing to clear, history is already empty.");
 	}
 }
 

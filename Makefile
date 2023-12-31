@@ -1,8 +1,10 @@
 # Compiler
 CXX := g++
+CC := gcc
 
 # Compiler flags
 CXXFLAGS := -g -Wall -Werror -Wextra -Wpedantic
+CFLAGS := -g -Wall -Werror -Wextra -Wpedantic
 
 # Source files directory
 SRC_DIR := src
@@ -14,10 +16,12 @@ BUILD_DIR := build
 TARGET := radio_operator
 
 # Source files
-SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+SRCS_CPP := $(wildcard $(SRC_DIR)/*.cpp)
+SRCS_C := $(wildcard $(SRC_DIR)/*.c)
 
 # Object files
-OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
+OBJS_CPP := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS_CPP))
+OBJS_C := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS_C))
 
 # Include directories
 INC_DIRS := -Iinclude
@@ -29,13 +33,18 @@ LIBS :=
 all: $(BUILD_DIR)/$(TARGET)
 
 # Rule to build the executable
-$(BUILD_DIR)/$(TARGET): $(OBJS)
+$(BUILD_DIR)/$(TARGET): $(OBJS_CPP) $(OBJS_C)
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -o $@ $^ $(LIBS)
 
-# Rule to build object files
+# Rule to build C++ object files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(INC_DIRS) -c -o $@ $<
+
+# Rule to build C object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC_DIRS) -c -o $@ $<
 
 # Clean rule
 clean:
