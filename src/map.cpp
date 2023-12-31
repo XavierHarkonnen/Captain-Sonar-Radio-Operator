@@ -329,19 +329,19 @@ void Map::render(SDL_Renderer* renderer, TTF_Font* font) {
 			// Draw the filled rectangle with the appropriate color
 			switch (data[i][j]) {
 				case VALID:
-					SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green for valid
+					SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 					break;
 				case INVALID:
-					SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red for invalid
+					SDL_SetRenderDrawColor(renderer, 128, 0, 128, 255);
 					break;
 				case ISLAND:
-					SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue for island
+					SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 					break;
 				case BORDER:
-					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White for border
+					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 					break;
 				default:
-					SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255); // Gray for unknown
+					SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 					break;
 			}
 			SDL_RenderFillRect(renderer, &rect);
