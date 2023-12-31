@@ -2,6 +2,7 @@
 
 ## Immediate
 
+- Write gameplay requirements (Captain Time)
 - Input handling and sanitation
 - Runtime interactive function calls
 - Graphical Interface
