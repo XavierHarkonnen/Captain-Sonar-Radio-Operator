@@ -2,7 +2,15 @@
 
 #include <SDL2/SDL_ttf.h>
 
-bool main_initialize(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&font, Map*& map, int argc, char* argv[]) {
+bool main_initialize(
+	SDL_Window *&window,
+	SDL_Renderer *&renderer,
+	TTF_Font *&grid_font,
+	TTF_Font *&button_font,
+	Map*& map,
+	int argc,
+	char* argv[]
+	) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		sig_err("SDL initialization failed: %s\n", SDL_GetError());
 		return false;
@@ -10,12 +18,6 @@ bool main_initialize(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&fo
 
 	if (TTF_Init() == -1) {
 		sig_err("SDL True Type Font initialization failed: %s\n", SDL_GetError());
-		return false;
-	}
-
-	font = TTF_OpenFont("assets/OpenSans-Regular.ttf", 48);
-	if (font == nullptr) {
-		sig_err("Font could not be found: %s\n", SDL_GetError());
 		return false;
 	}
 
@@ -42,8 +44,32 @@ bool main_initialize(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&fo
 		return false;
 	}
 
+	grid_font = TTF_OpenFont("assets/OpenSans-Regular.ttf", GRID_FONT_SIZE);
+	if (grid_font == nullptr) {
+		sig_err("Grid font could not be found: %s\n", SDL_GetError());
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return false;
+	}
+	
+	button_font = TTF_OpenFont("assets/OpenSans-Regular.ttf", BUTTON_FONT_SIZE);
+	if (button_font == nullptr) {
+		sig_err("Button font could not be found: %s\n", SDL_GetError());
+		TTF_CloseFont(grid_font);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		return false;
+	}
+
 	if (argc != 2) {
 		sig_err("Program takes map filename as the sole argument");
+		TTF_CloseFont(button_font);
+		TTF_CloseFont(grid_font);
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
 		return false;
 	}
 	map = new Map(argv[1]);
