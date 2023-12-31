@@ -22,6 +22,6 @@ constexpr int SCREEN_HEIGHT = 600;
  * @return true if the initialization is successful.
  * @return false if the initialization fails.
  */
-bool main_initialize(SDL_Window*& window, SDL_Renderer*& renderer, Map*& map, int argc, char* argv[]);
+bool main_initialize(SDL_Window*& window, SDL_Renderer*& renderer, TTF_Font *&font, Map*& map, int argc, char* argv[]);
 
 #endif

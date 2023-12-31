@@ -1,5 +1,7 @@
 #include "map.h"
 
+#include <string>
+
 extern "C" {
 	#include "signal.h"
 }
@@ -312,17 +314,19 @@ void Map::silence() {
 	}
 };
 
-void Map::render(SDL_Renderer* renderer) {
-	const int squareSize = 20;
+void Map::render(SDL_Renderer* renderer, TTF_Font* font) {
+	const int squareSize = 30;
+	const SDL_Color borderColor = {0, 0, 0, 255}; // Black color for border
 
-	for (int i = 0; i < rows; ++i) {
-		for (int j = 0; j < columns; ++j) {
+	for (int i = 0; i < rows-1; ++i) {
+		for (int j = 0; j < columns-1; ++j) {
 			SDL_Rect rect;
 			rect.x = j * squareSize;
 			rect.y = i * squareSize;
 			rect.w = squareSize;
 			rect.h = squareSize;
 
+			// Draw the filled rectangle with the appropriate color
 			switch (data[i][j]) {
 				case VALID:
 					SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green for valid
@@ -340,12 +344,69 @@ void Map::render(SDL_Renderer* renderer) {
 					SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255); // Gray for unknown
 					break;
 			}
-
 			SDL_RenderFillRect(renderer, &rect);
+
+			// Draw the border around the rectangle
+			SDL_SetRenderDrawColor(renderer, borderColor.r, borderColor.g, borderColor.b, borderColor.a);
+			SDL_RenderDrawRect(renderer, &rect);
+			
+			SDL_Rect numberRect;
+			if (i == 0 && j != 0 && j != columns) {
+				numberRect.x = j * squareSize;
+				numberRect.y = i * squareSize;
+				numberRect.w = squareSize;
+				numberRect.h = squareSize;
+				render_letter(renderer, j, numberRect, font);
+			}
+			else if (j == 0 && i != 0 && i != rows) {
+				numberRect.x = j * squareSize;
+				numberRect.y = i * squareSize;
+				numberRect.w = squareSize;
+				numberRect.h = squareSize;
+				render_number(renderer, i, numberRect, font);
+			}
 		}
 	}
 }
 
+void Map::render_letter(SDL_Renderer* renderer, int number, SDL_Rect rect, TTF_Font* font) {
+	// You can customize the font, color, and size of the letter rendering
+	SDL_Color textColor = {0, 0, 0, 255}; // Black color for text
+
+	// Convert the number to a letter (assuming 'A' for 1, 'B' for 2, and so on)
+	char letter = 'A' + (number - 1);
+
+	// Render the letter texture
+	SDL_Surface* surface = TTF_RenderText_Solid(font, &letter, textColor);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	// Render the texture
+	SDL_RenderCopy(renderer, texture, nullptr, &rect);
+
+	// Clean up
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+}
+
+
+void Map::render_number(SDL_Renderer* renderer, int number, SDL_Rect rect, TTF_Font* font) {
+	// You can customize the font, color, and size of the number rendering
+	SDL_Color textColor = {0, 0, 0, 255}; // Black color for text
+
+	// Convert the number to a string
+	std::string numberStr = std::to_string(number);
+
+	// Render the number texture
+	SDL_Surface* surface = TTF_RenderText_Solid(font, numberStr.c_str(), textColor);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	// Render the texture
+	SDL_RenderCopy(renderer, texture, nullptr, &rect);
+
+	// Clean up
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+}
 
 void Map::print() {
 	for (const std::vector<Space>& row : data) {

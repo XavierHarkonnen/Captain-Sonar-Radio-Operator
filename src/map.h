@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 enum Space {
 	VALID,
@@ -86,8 +87,28 @@ public:
 	 * @brief 
 	 * 
 	 * @param renderer 
+	 * @param font 
 	 */
-	void render(SDL_Renderer* renderer);
+	void render(SDL_Renderer* renderer ,TTF_Font* font);
+
+	/**
+	 * @brief 
+	 * 
+	 * @param renderer 
+	 * @param number 
+	 * @param rect 
+	 * @param font 
+	 */
+	void render_letter(SDL_Renderer* renderer, int number, SDL_Rect rect, TTF_Font* font);
+	
+	/**
+	 * @brief 
+	 * 
+	 * @param renderer 
+	 * @param number 
+	 * @param rect 
+	 */
+	void render_number(SDL_Renderer* renderer, int number, SDL_Rect rect, TTF_Font* font);
 
 	/**
 	 * @brief Print the current state of the map.

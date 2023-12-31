@@ -3,8 +3,8 @@ CXX := g++
 CC := gcc
 
 # Compiler flags
-CXXFLAGS := -g -Wall -Werror -Wextra -Wpedantic -lSDL2
-CFLAGS := -g -Wall -Werror -Wextra -Wpedantic -lSDL2
+CXXFLAGS := -g -Wall -Werror -Wextra -Wpedantic
+CFLAGS := -g -Wall -Werror -Wextra -Wpedantic
 
 # Source files directory
 SRC_DIR := src
@@ -27,7 +27,7 @@ OBJS_C := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS_C))
 INC_DIRS := -Iinclude
 
 # Libraries (if needed)
-LIBS := -lSDL2
+LIBS := -lSDL2 -lSDL2_ttf
 
 # Main target
 all: $(BUILD_DIR)/$(TARGET)

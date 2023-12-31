@@ -1,8 +1,21 @@
 #include "main_initialization.h"
 
-bool main_initialize(SDL_Window*& window, SDL_Renderer*& renderer, Map*& map, int argc, char* argv[]) {
+#include <SDL2/SDL_ttf.h>
+
+bool main_initialize(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&font, Map*& map, int argc, char* argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		sig_err("SDL initialization failed: %s\n", SDL_GetError());
+		return false;
+	}
+
+	if (TTF_Init() == -1) {
+		sig_err("SDL True Type Font initialization failed: %s\n", SDL_GetError());
+		return false;
+	}
+
+	font = TTF_OpenFont("assets/OpenSans-Regular.ttf", 48);
+	if (font == nullptr) {
+		sig_err("Font could not be found: %s\n", SDL_GetError());
 		return false;
 	}
 

@@ -1,13 +1,15 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "map.h"
 #include "main_initialization.h"
 
 int main(int argc, char* argv[]) {
+	TTF_Font *font = nullptr;
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	Map *board = nullptr;
 
-	if (!main_initialize(window, renderer, board, argc, argv)) {
+	if (!main_initialize(window, renderer, font, board, argc, argv)) {
 		return 1;
 	}
 
@@ -36,6 +38,13 @@ int main(int argc, char* argv[]) {
 						case SDLK_z:
 							if (SDL_GetModState() & KMOD_CTRL) { board->undo(); }
 							break;
+						case SDLK_BACKSPACE:
+							board->undo();
+							break;
+						case SDLK_DELETE:
+							board->clear();
+							break;
+
 
             }
 
@@ -45,11 +54,12 @@ int main(int argc, char* argv[]) {
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 
-		board->render(renderer);
+		board->render(renderer, font);
 
 		SDL_RenderPresent(renderer);
 	}
-
+	TTF_CloseFont(font);
+	TTF_Quit();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
