@@ -1,21 +1,42 @@
-#include <cstdio>
-#include <cstring>
+#include <SDL2/SDL.h>
 #include "map.h"
+#include "main_initialization.h"
 
 extern "C" {
 	#include "signal.h"
 }
 
 int main(int argc, char* argv[]) {
-	if (argc != 2) {
-		sig_err("Program takes map filename as sole argument");
+	SDL_Window *window = nullptr;
+	SDL_Renderer *renderer = nullptr;
+	Map *board = nullptr;
+
+	if (!main_initialize(window, renderer, board, argc, argv)) {
 		return 1;
 	}
-	Map board(argv[1]);
 
-	for (;;) {
-		// input polling
-		break;
+	SDL_Event e;
+	bool running = true;
+	while (running) {
+		while (SDL_PollEvent(&e) != 0) {
+			switch (e.type) {
+				case SDL_QUIT:
+					running = false;
+					break;
+			}
+		}
+
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderClear(renderer);
+
+		// Render your interface elements here
+
+		SDL_RenderPresent(renderer);
 	}
+
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+	delete board;
 	return 0;
 }
