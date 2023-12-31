@@ -23,9 +23,9 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	Button Sonar_Button(500, 50, 200, 100, {255, 0, 0, 255}, "Sonar", grid_font);
-	Button Drone_Button(500, 200, 200, 100, {255, 0, 0, 255}, "Drone", grid_font);
-	Button Silence_Button(500, 350, 200, 100, {255, 0, 0, 255}, "Silence", grid_font);
+	Button Sonar_Button(500, 50, 200, 100, {255, 0, 0, 255}, "Sonar", button_font);
+	Button Drone_Button(500, 200, 200, 100, {255, 0, 0, 255}, "Drone", button_font);
+	Button Silence_Button(500, 350, 200, 100, {255, 0, 0, 255}, "Silence", button_font);
 
 	SDL_Event e;
 	bool running = true;
