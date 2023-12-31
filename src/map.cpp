@@ -78,7 +78,7 @@ void sector(const uint8_t sector_number, uint8_t sector_bounds[4]) {
 			sector_bounds[3] = 15;
 			break;
 		default:
-			sig_error("Invalid Sector Number: %u\n       Undo to Recover", sector_number);
+			sig_err("Invalid Sector Number: %u\n       Undo to Recover", sector_number);
 			break;
 	}
 }
@@ -86,7 +86,7 @@ void sector(const uint8_t sector_number, uint8_t sector_bounds[4]) {
 Map::Map(const char *filename) {
 	FILE* map_file = fopen(filename, "r");
 	if (!map_file) {
-		sig_error("Could Not Open File: %s\n", filename);
+		sig_err("Could Not Open File: %s\n", filename);
 	fclose(map_file);
 	}
 	else {
@@ -111,7 +111,7 @@ Map::Map(const char *filename) {
 					break;
 				default:
 					data[i][j] = Space::BORDER;
-					sig_error("Invalid Character: %c (%i)", line_buffer[j], line_buffer[j]);
+					sig_err("Invalid Character: %c (%i)", line_buffer[j], line_buffer[j]);
 					continue;
 				}
 			}
