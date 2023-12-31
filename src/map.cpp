@@ -312,6 +312,41 @@ void Map::silence() {
 	}
 };
 
+void Map::render(SDL_Renderer* renderer) {
+    const int squareSize = 20;
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            SDL_Rect rect;
+            rect.x = j * squareSize;
+            rect.y = i * squareSize;
+            rect.w = squareSize;
+            rect.h = squareSize;
+
+            switch (data[i][j]) {
+                case VALID:
+                    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green for valid
+                    break;
+                case INVALID:
+                    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red for invalid
+                    break;
+                case ISLAND:
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue for island
+                    break;
+                case BORDER:
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White for border
+                    break;
+                default:
+                    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255); // Gray for unknown
+                    break;
+            }
+
+            SDL_RenderFillRect(renderer, &rect);
+        }
+    }
+}
+
+
 void Map::print() {
 	for (const std::vector<Space>& row : data) {
 		for (Space value : row) {

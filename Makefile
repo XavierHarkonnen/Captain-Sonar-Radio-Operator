@@ -61,7 +61,7 @@ pull:
 # Push rule
 push:
 	git add .
-	git commit -m "Automated Update"
+	git commit -m "Automated Update - Pre-Versioning"
 	git push origin main
 
 # Phony target to prevent conflicts with files

@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <cstdio>
+#include <SDL2/SDL.h>
 
 enum Space {
 	VALID,
@@ -80,6 +81,13 @@ public:
 	 * @brief Calculate possible positions given opponent silencing.
 	 */
 	void silence();
+
+	/**
+	 * @brief 
+	 * 
+	 * @param renderer 
+	 */
+	void render(SDL_Renderer* renderer);
 
 	/**
 	 * @brief Print the current state of the map.
