@@ -45,5 +45,10 @@ clean:
 run: all
 	./build/$(TARGET) assets/alpha.map
 
+update:
+	git add .
+	git commit -m "Automated Update"
+	git push origin main
+
 # Phony target to prevent conflicts with files named "clean," "all," or "run"
-.PHONY: all clean run
+.PHONY: all clean run update
