@@ -4,16 +4,13 @@
 #include "main_initialization.h"
 #include "button.h"
 
-const SDL_Color BUTTON_COLOR = {128, 128, 128, 255};
-constexpr int BUTTON_WIDTH = 180;
-constexpr int BUTTON_HEIGHT = 70;
-
 int main(int argc, char* argv[]) {
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	TTF_Font *grid_font = nullptr;
 	TTF_Font *button_font = nullptr;
 	Map *board_map = nullptr;
+	Button buttons[NUM_BUTTONS];
 
 	if (!main_initialize(
 		window,
@@ -21,31 +18,30 @@ int main(int argc, char* argv[]) {
 		grid_font,
 		button_font,
 		board_map,
+		buttons,
 		argc,
 		argv
 		)) {
 		return 1;
 	}
 
-	Button Sonar_Button(600, 10, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Sonar", button_font);
-	Button Drone_Button(600, 90, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Drone", button_font);
-	Button Silence_Button(600, 170, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Silence", button_font);
-
-	SDL_Event e;
+	SDL_Event event;
 	bool running = true;
 	while (running) {
-		while (SDL_PollEvent(&e) != 0) {
-			switch (e.type) {
+		while (SDL_PollEvent(&event) != 0) {
+			switch (event.type) {
 				case SDL_QUIT:
 					running = false;
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					if (Sonar_Button.is_clicked(e)) { printf("Sonar Clicked!\n"); }
-					else if (Drone_Button.is_clicked(e)) { printf("Drone Clicked!\n"); }
-					else if (Silence_Button.is_clicked(e)) { board_map->silence(); }
+					for (int i = 0; i < NUM_BUTTONS; ++i) {
+						if (buttons[i].is_clicked(event)) {
+							printf("%s Clicked!\n", buttons[i].text.c_str());
+						}
+					}
 					break;
 				case SDL_KEYDOWN:
-					switch (e.key.keysym.sym) {
+					switch (event.key.keysym.sym) {
 						case SDLK_UP:
 							board_map->move(NORTH);
 							break;
@@ -70,7 +66,7 @@ int main(int argc, char* argv[]) {
 						
 
 
-            }
+			}
 
 			}
 		}
@@ -79,9 +75,10 @@ int main(int argc, char* argv[]) {
 		SDL_RenderClear(renderer);
 
 		board_map->render(renderer, grid_font);
-		Sonar_Button.render(renderer);
-		Drone_Button.render(renderer);
-		Silence_Button.render(renderer);
+		for (int i = 0; i < NUM_BUTTONS; ++i) {
+			buttons[i].render(renderer);
+		}
+
 
 		SDL_RenderPresent(renderer);
 	}

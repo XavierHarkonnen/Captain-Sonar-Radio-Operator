@@ -8,6 +8,7 @@ bool main_initialize(
 	TTF_Font *&grid_font,
 	TTF_Font *&button_font,
 	Map*& map,
+	Button *buttons,
 	int argc,
 	char* argv[]
 	) {
@@ -73,6 +74,13 @@ bool main_initialize(
 		return false;
 	}
 	map = new Map(argv[1]);
+
+	buttons[SONAR] = Button(600, 10, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Sonar", button_font);
+    buttons[DRONE] = Button(600, 90, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Drone", button_font);
+    buttons[HIT] = Button(600, 170, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Hit", button_font);
+    buttons[LAUNCH] = Button(600, 250, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Launch", button_font);
+    buttons[SILENT] = Button(600, 330, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Silence", button_font);
+
 
 	return true;
 }

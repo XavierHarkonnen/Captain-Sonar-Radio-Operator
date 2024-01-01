@@ -1,14 +1,11 @@
 #include "button.h"
 
-Button::Button(int x, int y, int w, int h, const SDL_Color &color, const std::string &button_text, TTF_Font *button_font) {
-	rect.x = x;
-	rect.y = y;
-	rect.w = w;
-	rect.h = h;
-	background_color = color;
-	text = button_text;
-	font = button_font;
-}
+Button::Button() : rect{0, 0, 0, 0}, background_color{255, 255, 255, 255}, text(""), font(nullptr) {}
+
+
+Button::Button(int x, int y, int width, int height, const SDL_Color &color, const std::string &button_text, TTF_Font *button_font)
+    : rect({x, y, width, height}), background_color(color), text(button_text), font(button_font) {}
+
 
 Button::~Button() {
 	// Clean up resources

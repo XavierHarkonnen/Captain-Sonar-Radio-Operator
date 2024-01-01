@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "map.h"
+#include "button.h"
 
 extern "C" {
 	#include "signal.h"
@@ -12,6 +13,18 @@ constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
 constexpr int GRID_FONT_SIZE = 48;
 constexpr int BUTTON_FONT_SIZE = 24;
+constexpr int BUTTON_WIDTH = 180;
+constexpr int BUTTON_HEIGHT = 70;
+const SDL_Color BUTTON_COLOR = {128, 128, 128, 255};
+
+enum Buttons {
+	SONAR,
+	DRONE,
+	HIT,
+	LAUNCH,
+	SILENT,
+	NUM_BUTTONS
+};
 
 bool main_initialize(
 	SDL_Window*& window,
@@ -19,6 +32,7 @@ bool main_initialize(
 	TTF_Font *&grid_font,
 	TTF_Font *&button_font,
 	Map*& map,
+	Button *buttons,
 	int argc,
 	char* argv[]
 	);
