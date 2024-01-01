@@ -36,7 +36,19 @@ int main(int argc, char* argv[]) {
 				case SDL_MOUSEBUTTONDOWN:
 					for (int i = 0; i < NUM_BUTTONS; ++i) {
 						if (buttons[i].is_clicked(event)) {
-							printf("%s Clicked!\n", buttons[i].text.c_str());
+							switch (i) {
+								case SONAR:
+									// board_map->sonar();
+									break;
+								case DRONE:
+									break;
+								case HIT:
+									break;
+								case LAUNCH:
+									break;
+								case SILENT:
+									break;
+							}
 						}
 					}
 					break;
@@ -82,10 +94,10 @@ int main(int argc, char* argv[]) {
 
 		SDL_RenderPresent(renderer);
 	}
+	TTF_CloseFont(button_font);
 	TTF_CloseFont(grid_font);
-	TTF_Quit();
-	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 	delete board_map;
 	return 0;
