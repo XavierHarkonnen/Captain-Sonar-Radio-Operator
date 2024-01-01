@@ -79,7 +79,7 @@ bool main_initialize(
     buttons[DRONE] = Button(600, 90, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Drone", button_font);
     buttons[HIT] = Button(600, 170, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Hit", button_font);
     buttons[LAUNCH] = Button(600, 250, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Launch", button_font);
-    buttons[SILENT] = Button(600, 330, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Silence", button_font);
+    buttons[SILENCE] = Button(600, 330, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR, "Silence", button_font);
 
 
 	return true;

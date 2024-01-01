@@ -22,7 +22,7 @@ enum Buttons {
 	DRONE,
 	HIT,
 	LAUNCH,
-	SILENT,
+	SILENCE,
 	NUM_BUTTONS
 };
 

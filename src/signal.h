@@ -22,5 +22,12 @@ void sig_warn(const char *message, ...);
  * @param ... Variables to be formatted within message
  */
 void sig_info(const char *message, ...);
+/**
+ * @brief Asks the user for information
+ * 
+ * @param message Formatted message to accompany query
+ * @param ... Variables to be formatted within message
+ */
+char *sig_query(const char *message, ...);
 
 #endif
