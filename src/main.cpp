@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
 								case LAUNCH: {
 									char *sonar_input = sig_query("Enter Hit location (column, row, direct) separated by spaces as NUMBER LETTER LETTER. Enter 'y' if the hit was direct");
 									int row;
-									char column, direct;
+									char column;
 
 									if (sscanf(sonar_input, "%d %c", &row, &column) == 2) {
 										if ('a' <= column && column <= 'z') {
